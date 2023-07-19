@@ -14,7 +14,7 @@ async def get_user_id_from_username(api, username):
     return user_id
 
 async def get_user_profile_info(username):
-    api = ThreadsAPI()
+    api = ThreadsAPI(settings_path=None)
     user_id = await api.get_user_id_from_username(username)
 
     if user_id:
@@ -26,7 +26,7 @@ async def get_user_profile_info(username):
         return None
 
 async def get_user_threads(username):
-    api = ThreadsAPI()
+    api = ThreadsAPI(settings_path=None)
     user_id = await api.get_user_id_from_username(username)
     if user_id:
         threads = await api.get_user_threads(user_id)
@@ -188,7 +188,8 @@ def index():
 
         # Asynchronously run the functions and get the results
         async def main():
-            api = ThreadsAPI()
+            api = ThreadsAPI(settings_path=None)
+
 
             # Fetch user data asynchronously
             user_id, user_profile, user_threads, top_10_friends = await fetch_user_data(api, username)
